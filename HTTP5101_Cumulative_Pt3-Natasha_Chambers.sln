@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTTP5101_Cumulative_Pt3-Natasha_Chambers", "HTTP5101_Cumulative_Pt3-Natasha_Chambers\HTTP5101_Cumulative_Pt3-Natasha_Chambers.csproj", "{C795EF6A-ED4B-48BC-AC36-A031C3885572}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C795EF6A-ED4B-48BC-AC36-A031C3885572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C795EF6A-ED4B-48BC-AC36-A031C3885572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C795EF6A-ED4B-48BC-AC36-A031C3885572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C795EF6A-ED4B-48BC-AC36-A031C3885572}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DDD8BE2C-DF54-402D-985E-04C4C6424ACF}
+	EndGlobalSection
+EndGlobal
