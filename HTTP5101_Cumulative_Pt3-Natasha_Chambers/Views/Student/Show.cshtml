@@ -1,0 +1,12 @@
+﻿@model HTTP5101_Cumulative_Pt3_Natasha_Chambers.Models.Student
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>@Model.StudentFname @Model.StudentLname</h2>
+<a href="/Student/List/">Back to Student List</a>
+<div>
+    <h3>Student Information:</h3>
+    <p>Student Number: @Model.StudentNumber</p>
+    <p>Enroll Date: @Model.EnrollDate</p>
+</div>

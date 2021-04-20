@@ -1,0 +1,13 @@
+﻿@model IEnumerable<HTTP5101_Cumulative_Pt3_Natasha_Chambers.Models.Student>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List Students</h2>
+
+@foreach (var student in Model)
+{
+    <div>
+        <a href="/Student/Show/@student.StudentId">@student.StudentFname @student.StudentLname</a>
+    </div>
+}

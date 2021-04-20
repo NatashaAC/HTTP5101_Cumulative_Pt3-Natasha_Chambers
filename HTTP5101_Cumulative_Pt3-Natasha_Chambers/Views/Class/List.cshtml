@@ -1,0 +1,14 @@
+﻿@model IEnumerable<HTTP5101_Cumulative_Pt3_Natasha_Chambers.Models.Class>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>Class List</h2>
+<a id="back-link" href="/Teacher/List/">View List of Teachers</a>
+
+@foreach (var schoolClass in Model)
+{
+    <div>
+        <a href="/Class/Show/@schoolClass.ClassId">@schoolClass.ClassCode @schoolClass.ClassName</a>
+    </div>
+}
