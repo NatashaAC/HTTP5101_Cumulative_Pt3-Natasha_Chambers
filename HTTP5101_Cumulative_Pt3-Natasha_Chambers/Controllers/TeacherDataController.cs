@@ -25,8 +25,8 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///     GET api/TeacherData/ListTeachers
         /// </example>
         [HttpGet]
-        [Route("api/TeacherData/ListTeachers")]
-        public IEnumerable<Teacher> ListTeachers()
+        [Route("api/TeacherData/ListTeachers/{SearchKey?}")]
+        public IEnumerable<Teacher> ListTeachers(string SearchKey = null)
         {
             // Instance of Connection
             MySqlConnection Conn = School.AccessDatabase();
@@ -38,7 +38,13 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             // SQL Query
-            cmd.CommandText = "SELECT * FROM teachers";
+            cmd.CommandText = "SELECT * FROM teachers WHERE LOWER(teacherfname) LIKE LOWER(@key) " +
+                "OR LOWER(teacherlname) LIKE LOWER(@key) " +
+                "OR LOWER(CONCAT(teacherfname, ' ', teacherlname)) LIKE LOWER(@key)";
+
+            // Parameters to protect Query from SQL Injection Attacks
+            cmd.Parameters.AddWithValue("key", "%" + SearchKey + "%");
+            cmd.Prepare();
 
             // Variable that stores the results from the SQL Query
             MySqlDataReader ResultSet = cmd.ExecuteReader();
@@ -122,6 +128,69 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             Conn.Close();
 
             return NewTeacher;
+        }
+
+        /// <summary>
+        ///     Deletes a Teacher and their information from the teachers table
+        /// </summary>
+        /// <param name="id">an integer, that corresponds to the teacherid</param>
+        [HttpPost]
+        public void DeleteTeacher(int id)
+        {
+            // Instance of connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            // Open the connection between the web server and database
+            Conn.Open();
+
+            // Establish a new command (query) for our database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            // SQL Query
+            cmd.CommandText = "DELETE FROM teachers WHERE teacherid = @id";
+
+            // Parameters to protect against SQL Injection Attacks
+            cmd.Parameters.AddWithValue("id", id);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            // Close connection
+            Conn.Close();
+        }
+
+        /// <summary>
+        ///     Adds a Teacher to the teachers table
+        /// </summary>
+        /// <param name="NewTeacher">A teacher object</param>
+        [HttpPost]
+        public void AddTeacher([FromBody] Teacher NewTeacher)
+        {
+            // Instance of connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            // Open connection between web server and database
+            Conn.Open();
+
+            // Create new query for database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            // SQL Query
+            cmd.CommandText = "INSERT INTO teachers (teacherfname, teacherlname, employeenumber, hiredate, salary) " +
+                "VALUES (@teacherfname, @teacherlname, @employeenumber, @hiredate, @salary)";
+
+            // Parameters for SQL Query
+            cmd.Parameters.AddWithValue("teacherfname", NewTeacher.TeacherFname);
+            cmd.Parameters.AddWithValue("teacherlname", NewTeacher.TeacherLname);
+            cmd.Parameters.AddWithValue("employeenumber", NewTeacher.EmployeeNumber);
+            cmd.Parameters.AddWithValue("hiredate", NewTeacher.HireDate);
+            cmd.Parameters.AddWithValue("salary", NewTeacher.Salary);
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            // Close Connection
+            Conn.Close();
         }
     }
 }
