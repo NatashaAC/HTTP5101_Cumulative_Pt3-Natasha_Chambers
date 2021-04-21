@@ -100,7 +100,11 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             // SQL Query
-            cmd.CommandText = "SELECT * FROM Teachers WHERE teacherid = " + id;
+            cmd.CommandText = "SELECT * FROM Teachers WHERE teacherid = @id";
+
+            // Parameters for SQL Query to protect against SQL Injection Attacks
+            cmd.Parameters.AddWithValue("id", id);
+            cmd.Prepare();
 
             // Store Query results
             MySqlDataReader ResultSet = cmd.ExecuteReader();
@@ -179,7 +183,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             cmd.CommandText = "INSERT INTO teachers (teacherfname, teacherlname, employeenumber, hiredate, salary) " +
                 "VALUES (@teacherfname, @teacherlname, @employeenumber, @hiredate, @salary)";
 
-            // Parameters for SQL Query
+            // Parameters for SQL Query to protect against SQL Injection Attacks
             cmd.Parameters.AddWithValue("teacherfname", NewTeacher.TeacherFname);
             cmd.Parameters.AddWithValue("teacherlname", NewTeacher.TeacherLname);
             cmd.Parameters.AddWithValue("employeenumber", NewTeacher.EmployeeNumber);

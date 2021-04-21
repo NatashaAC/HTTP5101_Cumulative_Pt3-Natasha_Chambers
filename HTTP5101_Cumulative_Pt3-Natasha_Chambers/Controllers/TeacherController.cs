@@ -23,6 +23,9 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         // GET: Teacher/Show
         public ActionResult Show(int id)
         {
+            // Checking that the method is running
+            Debug.WriteLine("The SHOW Method is running and the teacher_id is " + id);
+
             // Instantiating 
             TeacherDataController controller = new TeacherDataController();
             Teacher NewTeacher = controller.FindTeacher(id);
@@ -33,6 +36,9 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         // POST: /Teacher/DeleteConfirmation/{id}
         public ActionResult DeleteConfirmation(int id)
         {
+            // Checking that the method is running
+            Debug.WriteLine("The DELETE CONFIRMATION Method is running and is going to delete teacher_id " + id);
+
             // Instantiating 
             TeacherDataController controller = new TeacherDataController();
             Teacher NewTeacher = controller.FindTeacher(id);
@@ -44,6 +50,9 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
+            // Checking that the method is running
+            Debug.WriteLine("The DELETE Method is running and has deleted teacher_id " + id);
+
             // Instantiating 
             TeacherDataController controller = new TeacherDataController();
             controller.DeleteTeacher(id);
@@ -62,14 +71,12 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         public ActionResult Create(string TeacherFname, string TeacherLname, string EmployeeNumber, DateTime HireDate, decimal Salary)
         {
             // Checking that the method is running
-            Debug.WriteLine("The create method is running!");
+            Debug.WriteLine("The CREATE Method is running!");
 
             // Checking that the inputs from the form has been received 
-            Debug.WriteLine(TeacherFname);
-            Debug.WriteLine(TeacherLname);
-            Debug.WriteLine(EmployeeNumber);
-            Debug.WriteLine(HireDate);
-            Debug.WriteLine(Salary);
+            Debug.WriteLine("Employee Number: " + EmployeeNumber + ", First name: " + TeacherFname + ", Last name: " + TeacherLname);
+            Debug.WriteLine("Hire Date: " + HireDate);
+            Debug.WriteLine("Salary: " + Salary);
 
             // Validating 
             if (TeacherFname == "" || TeacherLname == "" || EmployeeNumber == "")
