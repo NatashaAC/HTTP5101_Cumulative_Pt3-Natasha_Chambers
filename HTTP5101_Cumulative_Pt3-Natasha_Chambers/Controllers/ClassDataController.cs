@@ -25,8 +25,8 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///     GET api/ClassData/ListClasses
         /// </example>
         [HttpGet]
-        [Route("api/ClassData/ListClasses")]
-        public IEnumerable<Class> ListClasses()
+        [Route("api/ClassData/ListClasses/{SearchKey?}")]
+        public IEnumerable<Class> ListClasses(string SearchKey = null)
         {
             // Instance of Connection
             MySqlConnection Conn = School.AccessDatabase();
@@ -38,7 +38,12 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             // SQL Query
-            cmd.CommandText = "SELECT * FROM classes";
+            cmd.CommandText = "SELECT * FROM classes WHERE LOWER(classname) LIKE LOWER(@key)" +
+                "OR LOWER(classcode) LIKE LOWER(@key)";
+
+            // Parameters to protect Query from SQL Injection Attacks
+            cmd.Parameters.AddWithValue("key", "%" + SearchKey + "%");
+            cmd.Prepare();
 
             // Variable thats stores the results from the SQL Querys
             MySqlDataReader ResultSet = cmd.ExecuteReader();

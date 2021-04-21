@@ -3,12 +3,24 @@
     ViewBag.Title = "List";
 }
 
-<h2>Class List</h2>
-<a id="back-link" href="/Teacher/List/">View List of Teachers</a>
+<nav>
+    <a class="navLink" href="/Class/New">Add A Class</a>
 
-@foreach (var schoolClass in Model)
-{
-    <div>
-        <a href="/Class/Show/@schoolClass.ClassId">@schoolClass.ClassCode @schoolClass.ClassName</a>
-    </div>
-}
+    <form action="/Class/List" method="POST">
+        <div class="searchBar">
+            <input type="text" name="SearchKey" />
+            <button type="submit" value="search_class">Search</button>
+        </div>
+    </form>
+</nav>
+
+<div class="listContainer">
+    <h2>Class List</h2>
+
+    @foreach (var schoolClass in Model)
+    {
+        <div>
+            <a href="/Class/Show/@schoolClass.ClassId">@schoolClass.ClassCode @schoolClass.ClassName</a>
+        </div>
+    }
+</div>
