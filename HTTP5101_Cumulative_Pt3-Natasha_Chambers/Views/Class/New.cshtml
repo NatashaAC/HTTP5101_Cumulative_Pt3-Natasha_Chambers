@@ -10,26 +10,26 @@
 <h2>New Class</h2>
 
 <form method="POST" action="/Class/Create" onsubmit="validateClassForm()">
-    <div>
+    <div class="classInput">
         <label for="classcode">Class Code:</label>
         <input type="text" id="classcode" name="classcode" />
         <p id="ccErrorMssg"></p>
     </div>
-    <div>
+    <div class="classInput">
         <label for="classnames">Class Name:</label>
         <input type="text" id="classname" name="classname" placeholder="http5105"/>
         <p id="cnErrorMssg"></p>
     </div>
-    <div>
+    <div class="classInput">
         <label>Start Date:</label>
         <input type="date" id="startdate" name="startdate" />
     </div>
-    <div>
+    <div class="classInput">
         <label>Finish Date:</label>
         <input type="date" id="finishdate" name="finishdate" />
     </div>
     <div>
-        <button type="submit">Add Class</button>
+        <button class="formBtn" type="submit">Add Class</button>
     </div>
 </form>
 

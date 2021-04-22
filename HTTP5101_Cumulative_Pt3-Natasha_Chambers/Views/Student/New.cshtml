@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "New";
+}
+
+<nav>
+    <a class="navLink" href="/Student/List">Back to Student List</a>
+</nav>
+
+<h2>New Student</h2>
+
+<form method="POST" action="/Student/Create" onsubmit="validateStudentForm();">
+    <div class="studentInput">
+        <label for="studentfname">First Name:</label>
+        <input type="text" id="studentfname" name="studentfname" />
+        <p id="fnErrorMssg"></p>
+    </div>
+    <div class="studentInput">
+        <label for="studentlname">Last Name:</label>
+        <input type="text" id="studentlname" name="studentlname" />
+        <p id="lnErrorMssg"></p>
+    </div>
+    <div class="studentInput">
+        <label for="studentnumber">Student Number:</label>
+        <input type="text" id="studentnumber" name="studentnumber" />
+        <p id="snErrorMssg"></p>
+    </div>
+    <div class="studentInput">
+        <label for="enrolldate">Enroll Date:</label>
+        <input type="date" id="enrolldate" name="enrolldate" />
+    </div>
+    <div>
+        <button class="formBtn" type="submit">Add Student</button>
+    </div>
+</form>
+
+<script type="text/javascript">
+    function validateStudentForm() {
+        var firstName = document.getElementById("studentfname").value;
+        var lastName = document.getElementById("studentlname").value;
+        var studentNumber = document.getElementById("studentnumber").value;
+
+        var studentNumPattern = /(n|N)\d{8}/;
+
+        var fnMssg = document.getElementById("fnErrorMssg");
+        var lnMssg = document.getElementById("lnErrorMssg");
+        var snMssg = document.getElementById("snErrorMssg");
+
+        // Validating form fields
+        if (firstName == "" || firstName == null) {
+            fnMssg.innerHTML = "first name field can not be blank.";
+            return false;
+
+        } else if (lastName == "" || lastName == null) {
+            lnMssg.innerHTML = "Last name field can not be blank.";
+            return false;
+
+        } else if (studentNumber == "" || studentNumber == null || !studentNumPattern.test(studentNumber)) {
+            snMssg.innerHTML = "Student number field can not be blank.";
+            return false;
+
+        } else {
+            return true;
+        }
+    }
+</script>

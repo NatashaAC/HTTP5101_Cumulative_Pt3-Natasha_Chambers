@@ -3,10 +3,14 @@
     ViewBag.Title = "Show";
 }
 
-<h2>@Model.StudentFname @Model.StudentLname</h2>
-<a href="/Student/List/">Back to Student List</a>
+<nav>
+    <a class="navLink" href="/Student/List">Back to Student List</a>
+    <a class="deleLink" href="/Class/DeleteConfirmation/@Model.StudentId">Delete</a>
+</nav>
+
 <div>
+    <h2>@Model.StudentFname @Model.StudentLname</h2>
     <h3>Student Information:</h3>
     <p>Student Number: @Model.StudentNumber</p>
-    <p>Enroll Date: @Model.EnrollDate</p>
+    <p>Enroll Date: @Model.EnrollDate.ToString("MMMM-dd-yyyy")</p>
 </div>
