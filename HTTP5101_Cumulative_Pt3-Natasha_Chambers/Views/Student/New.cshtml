@@ -13,17 +13,17 @@
     <div class="studentInput">
         <label for="studentfname">First Name:</label>
         <input type="text" id="studentfname" name="studentfname" />
-        <p id="fnErrorMssg"></p>
+        <p class="errorMssg" id="fnErrorMssg"></p>
     </div>
     <div class="studentInput">
         <label for="studentlname">Last Name:</label>
         <input type="text" id="studentlname" name="studentlname" />
-        <p id="lnErrorMssg"></p>
+        <p class="errorMssg" id="lnErrorMssg"></p>
     </div>
     <div class="studentInput">
         <label for="studentnumber">Student Number:</label>
         <input type="text" id="studentnumber" name="studentnumber" />
-        <p id="snErrorMssg"></p>
+        <p class="errorMssg" id="snErrorMssg"></p>
     </div>
     <div class="studentInput">
         <label for="enrolldate">Enroll Date:</label>
@@ -40,7 +40,7 @@
         var lastName = document.getElementById("studentlname").value;
         var studentNumber = document.getElementById("studentnumber").value;
 
-        var studentNumPattern = /(n|N)\d{8}/;
+        var studentNumPattern = /(n|N)\d{4}/;
 
         var fnMssg = document.getElementById("fnErrorMssg");
         var lnMssg = document.getElementById("lnErrorMssg");

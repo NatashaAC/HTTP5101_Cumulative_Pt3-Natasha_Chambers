@@ -13,5 +13,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Models
         public string StudentLname;
         public string StudentNumber;
         public DateTime EnrollDate;
+
+        public Student() { }
     }
 }

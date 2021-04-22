@@ -11,6 +11,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
     public class TeacherController : Controller
     {
         // GET: Teacher/List
+        // View that displays a list of teachers from the school database
         public ActionResult List(string SearchKey = null)
         {
             // Instantiating 
@@ -21,6 +22,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         }
 
         // GET: Teacher/Show
+        // View that displays a specfic teacher from the school database
         public ActionResult Show(int id)
         {
             // Checking that the method is running

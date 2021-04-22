@@ -25,8 +25,8 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///     GET api/StudentData/ListStudents
         /// </example>
         [HttpGet]
-        [Route("api/StudentData/ListStudents")]
-        public IEnumerable<Student> ListStudents()
+        [Route("api/StudentData/ListStudents/{SearchKey?}")]
+        public IEnumerable<Student> ListStudents(string SearchKey = null)
         {
             // Instance of Connection
             MySqlConnection Conn = School.AccessDatabase();
@@ -38,7 +38,13 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             // SQL Query
-            cmd.CommandText = "SELECT * FROM students";
+            cmd.CommandText = "SELECT * FROM students WHERE LOWER(studentfname) LIKE LOWER(@key) " +
+                "OR LOWER(studentlname) LIKE LOWER(@key) " +
+                "OR LOWER(CONCAT(studentfname, ' ', studentlname)) LIKE LOWER(@key)";
+
+            // Parameters to protect Query from SQL Injection Attacks
+            cmd.Parameters.AddWithValue("key", "%" + SearchKey + "%");
+            cmd.Prepare();
 
             // Store results from Query into a variable
             MySqlDataReader ResultSet = cmd.ExecuteReader();
@@ -97,7 +103,11 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             // SQL Query
-            cmd.CommandText = "SELECT * FROM students WHERE studentid = " + id;
+            cmd.CommandText = "SELECT * FROM students WHERE studentid = @student_id";
+
+            // Parameters to protect SQL Query from SQL Injection Attacks
+            cmd.Parameters.AddWithValue("student_id", id);
+            cmd.Prepare();
 
             // Store Query results
             MySqlDataReader ResultSet = cmd.ExecuteReader();
@@ -123,6 +133,70 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             Conn.Close();
 
             return NewStudent;
+        }
+
+        /// <summary>
+        ///     Deletes a Student and their information from the students table
+        /// </summary>
+        /// <param name="id">an integer, that corresponds to the studentid</param>
+        /// <return> Nothing </return>
+        [HttpPost]
+        public void DeleteStudent(int id)
+        {
+            // Instance of connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            // Open the connection between the web server and database
+            Conn.Open();
+
+            // Establish a new command (query) for our database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            // SQL Query
+            cmd.CommandText = "DELETE FROM students WHERE studentid = @student_id";
+
+            // Parameters to protect against SQL Injection Attacks
+            cmd.Parameters.AddWithValue("student_id", id);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            // Close connection
+            Conn.Close();
+        }
+
+        /// <summary>
+        ///     Adds a Student to the students table
+        /// </summary>
+        /// <param name="NewStudent">A student object</param>
+        /// <return> Nothing </return>
+        [HttpPost]
+        public void AddStudent([FromBody] Student NewStudent)
+        {
+            // Instance of connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            // Open connection between web server and database
+            Conn.Open();
+
+            // Create new query for database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            // SQL Query
+            cmd.CommandText = "INSERT INTO students (studentfname, studentlname, studentnumber, enroldate) " +
+                "VALUES (@studentfname, @studentlname, @studentnumber, @enroldate)";
+
+            // Parameters for SQL Query to protect against SQL Injection Attacks
+            cmd.Parameters.AddWithValue("studentfname", NewStudent.StudentFname);
+            cmd.Parameters.AddWithValue("studentlname", NewStudent.StudentLname);
+            cmd.Parameters.AddWithValue("studentnumber", NewStudent.StudentNumber);
+            cmd.Parameters.AddWithValue("enroldate", NewStudent.EnrollDate);
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            // Close Connection
+            Conn.Close();
         }
     }
 }

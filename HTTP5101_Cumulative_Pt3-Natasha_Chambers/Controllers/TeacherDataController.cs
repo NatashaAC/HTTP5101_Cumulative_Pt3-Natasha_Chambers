@@ -100,10 +100,10 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             // SQL Query
-            cmd.CommandText = "SELECT * FROM Teachers WHERE teacherid = @id";
+            cmd.CommandText = "SELECT * FROM Teachers WHERE teacherid = @teacher_id";
 
             // Parameters for SQL Query to protect against SQL Injection Attacks
-            cmd.Parameters.AddWithValue("id", id);
+            cmd.Parameters.AddWithValue("teacher_id", id);
             cmd.Prepare();
 
             // Store Query results
@@ -152,10 +152,10 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             // SQL Query
-            cmd.CommandText = "DELETE FROM teachers WHERE teacherid = @id";
+            cmd.CommandText = "DELETE FROM teachers WHERE teacherid = @teacher_id";
 
             // Parameters to protect against SQL Injection Attacks
-            cmd.Parameters.AddWithValue("id", id);
+            cmd.Parameters.AddWithValue("teacher_id", id);
             cmd.Prepare();
 
             cmd.ExecuteNonQuery();
