@@ -3,5 +3,54 @@
     ViewBag.Title = "New";
 }
 
-<h2>New</h2>
+<nav>
+    <a class="navLink" href="/Class/List">Back to Class List</a>
+</nav>
 
+<h2>New Class</h2>
+
+<form method="POST" action="/Class/Create" onsubmit="validateClassForm()">
+    <div>
+        <label for="classcode">Class Code:</label>
+        <input type="text" id="classcode" name="classcode" />
+        <p id="ccErrorMssg"></p>
+    </div>
+    <div>
+        <label for="classnames">Class Name:</label>
+        <input type="text" id="classname" name="classname" placeholder="http5105"/>
+        <p id="cnErrorMssg"></p>
+    </div>
+    <div>
+        <label>Start Date:</label>
+        <input type="date" id="startdate" name="startdate" />
+    </div>
+    <div>
+        <label>Finish Date:</label>
+        <input type="date" id="finishdate" name="finishdate" />
+    </div>
+    <div>
+        <button type="submit">Add Class</button>
+    </div>
+</form>
+
+<script type="text/javascript">
+    function validateClassForm() {
+        var classCode = document.getElementById("classcode");
+        var className = document.getElementById("classname");
+
+        var classCodePattern = /\w{4}\d{4}/;
+
+        var ccMssg = document.getElementById("ccErrorMssg");
+        var cnMssg = document.getElementById("cnErrorMssg");
+
+        if (classCode == "" || !classCodePattern.test(classCode)) {
+            ccMssg.innerHTML = "This form field can not be empty, and code must be four letters followed by four numbers!";
+            return false;
+        } else if (className == "" || className == null) {
+            cnMssg.innerHTML = "This form field can not be empty;"
+            return false;
+        } else {
+            return true;
+        }
+    }
+</script>

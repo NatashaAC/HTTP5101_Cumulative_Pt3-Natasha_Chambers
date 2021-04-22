@@ -39,14 +39,14 @@
     </div>
 </form>
 
-<script>
+<script type="text/javascript">
     function validateTeacherForm() {
         var firstName = document.getElementById("teacherfname").value;
         var lastName = document.getElementById("teacherlname").value;
         var employeeNumber = document.getElementById("employeenumber").value;
         var salary = document.getElementById("salary").value;
 
-        var employeeNumPattern = /T\d\d\d/;
+        var employeeNumPattern = /(t|T)\d{3}/;
 
         var fnMssg = document.getElementById("fnErrorMssg");
         var lnMssg = document.getElementById("lnErrorMssg");
@@ -54,19 +54,19 @@
         var salMssg = document.getElementById("salErrorMssg");
 
         // Validating form fields
-        if (firstName == "" | firstName == null) {
+        if (firstName == "" || firstName == null) {
             fnMssg.innerHTML = "first name field can not be blank.";
             return false;
 
-        } else if (lastName == "" | lastName == null) {
+        } else if (lastName == "" || lastName == null) {
             lnMssg.innerHTML = "Last name field can not be blank.";
             return false;
 
-        } else if (employeeNumber == "" | employeeNumber == null | !employeeNumPattern.test(employeeNumber)) {
+        } else if (employeeNumber == "" || employeeNumber == null || !employeeNumPattern.test(employeeNumber)) {
             emMssg.innerHTML = "Employee number field can not be blank.";
             return false;
 
-        } else if (salary == "" | salary == null | salary == isNaN) {
+        } else if (salary == "" || salary == null || salary == isNaN) {
             salMssg.innerHTML = "Salary field can not be blank.";
             return false;
         }

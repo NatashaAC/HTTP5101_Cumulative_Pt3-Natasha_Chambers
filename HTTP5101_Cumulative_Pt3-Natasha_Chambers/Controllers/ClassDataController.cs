@@ -130,5 +130,69 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
 
             return NewClass;
         }
+
+        /// <summary>
+        ///     Deletes a Class and their information from the Classes table
+        /// </summary>
+        /// <param name="id">an integer, that corresponds to the classid</param>
+        /// <return> Nothing </return>
+        [HttpPost]
+        public void DeleteClass(int id)
+        {
+            // Instance of connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            // Open the connection between the web server and database
+            Conn.Open();
+
+            // Establish a new command (query) for our database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            // SQL Query
+            cmd.CommandText = "DELETE FROM classes WHERE classid = @id";
+
+            // Parameters to protect against SQL Injection Attacks
+            cmd.Parameters.AddWithValue("id", id);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            // Close connection
+            Conn.Close();
+        }
+
+        /// <summary>
+        ///     Adds a Class to the classes table
+        /// </summary>
+        /// <param name="NewClass">A class object</param>
+        /// <return> Nothing </return>
+        [HttpPost]
+        public void AddClass([FromBody] Class NewClass)
+        {
+            // Instance of connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            // Open connection between web server and database
+            Conn.Open();
+
+            // Create new query for database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            // SQL Query
+            cmd.CommandText = "INSERT INTO classes (classcode, startdate, finishdate, classname) " +
+                "VALUES (@classcode, @startdate, @finishdate, @classname)";
+
+            // Parameters for SQL Query to protect against SQL Injection Attacks
+            cmd.Parameters.AddWithValue("classcode", NewClass.ClassCode);
+            cmd.Parameters.AddWithValue("startdate", NewClass.StartDate);
+            cmd.Parameters.AddWithValue("finishdate", NewClass.FinishDate);
+            cmd.Parameters.AddWithValue("classname", NewClass.ClassName);
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            // Close Connection
+            Conn.Close();
+        }
     }
 }

@@ -37,7 +37,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         public ActionResult DeleteConfirmation(int id)
         {
             // Checking that the method is running
-            Debug.WriteLine("The DELETE CONFIRMATION Method is running and is going to delete teacher_id " + id);
+            Debug.WriteLine("The DELETE CONFIRMATION Method is running and is going to delete TEACHER ID " + id);
 
             // Instantiating 
             TeacherDataController controller = new TeacherDataController();

@@ -138,6 +138,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///     Deletes a Teacher and their information from the teachers table
         /// </summary>
         /// <param name="id">an integer, that corresponds to the teacherid</param>
+        /// <return> Nothing </return>
         [HttpPost]
         public void DeleteTeacher(int id)
         {
@@ -167,6 +168,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///     Adds a Teacher to the teachers table
         /// </summary>
         /// <param name="NewTeacher">A teacher object</param>
+        /// <return> Nothing </return>
         [HttpPost]
         public void AddTeacher([FromBody] Teacher NewTeacher)
         {

@@ -13,5 +13,8 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Models
         public string ClassName;
         public DateTime StartDate;
         public DateTime FinishDate;
+
+        // Parameter-less constructor function
+        public Class() { }
     }
 }
