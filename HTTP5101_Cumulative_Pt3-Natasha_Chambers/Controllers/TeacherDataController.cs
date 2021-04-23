@@ -43,7 +43,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
                 "OR LOWER(CONCAT(teacherfname, ' ', teacherlname)) LIKE LOWER(@key)";
 
             // Parameters to protect Query from SQL Injection Attacks
-            cmd.Parameters.AddWithValue("key", "%" + SearchKey + "%");
+            cmd.Parameters.AddWithValue("@key", "%" + SearchKey + "%");
             cmd.Prepare();
 
             // Variable that stores the results from the SQL Query
@@ -103,7 +103,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             cmd.CommandText = "SELECT * FROM Teachers WHERE teacherid = @teacher_id";
 
             // Parameters for SQL Query to protect against SQL Injection Attacks
-            cmd.Parameters.AddWithValue("teacher_id", id);
+            cmd.Parameters.AddWithValue("@teacher_id", id);
             cmd.Prepare();
 
             // Store Query results
@@ -155,7 +155,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             cmd.CommandText = "DELETE FROM teachers WHERE teacherid = @teacher_id";
 
             // Parameters to protect against SQL Injection Attacks
-            cmd.Parameters.AddWithValue("teacher_id", id);
+            cmd.Parameters.AddWithValue("@teacher_id", id);
             cmd.Prepare();
 
             cmd.ExecuteNonQuery();
@@ -186,11 +186,41 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
                 "VALUES (@teacherfname, @teacherlname, @employeenumber, @hiredate, @salary)";
 
             // Parameters for SQL Query to protect against SQL Injection Attacks
-            cmd.Parameters.AddWithValue("teacherfname", NewTeacher.TeacherFname);
-            cmd.Parameters.AddWithValue("teacherlname", NewTeacher.TeacherLname);
-            cmd.Parameters.AddWithValue("employeenumber", NewTeacher.EmployeeNumber);
-            cmd.Parameters.AddWithValue("hiredate", NewTeacher.HireDate);
-            cmd.Parameters.AddWithValue("salary", NewTeacher.Salary);
+            cmd.Parameters.AddWithValue("@teacherfname", NewTeacher.TeacherFname);
+            cmd.Parameters.AddWithValue("@teacherlname", NewTeacher.TeacherLname);
+            cmd.Parameters.AddWithValue("@employeenumber", NewTeacher.EmployeeNumber);
+            cmd.Parameters.AddWithValue("@hiredate", NewTeacher.HireDate);
+            cmd.Parameters.AddWithValue("@salary", NewTeacher.Salary);
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            // Close Connection
+            Conn.Close();
+        }
+
+        public void UpdateTeacher(int id, [FromBody]Teacher TeacherInfo)
+        {
+            // Instance of connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            // Open connection between web server and database
+            Conn.Open();
+
+            // Create new query for database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            // SQL Query
+            cmd.CommandText = "UPDATE teachers SET teacherfname = @teacherfname, teacherlname = @teacherlname, " +
+                "employeenumber = @employeenumber, hiredate = @hiredate, salary = @salary WHERE teacherid = @teacher_id";
+
+            // Parameters to protect against SQL Injection Attacks
+            cmd.Parameters.AddWithValue("@teacherfname", TeacherInfo.TeacherFname);
+            cmd.Parameters.AddWithValue("@teacherlname", TeacherInfo.TeacherLname);
+            cmd.Parameters.AddWithValue("@employeenumber", TeacherInfo.EmployeeNumber);
+            cmd.Parameters.AddWithValue("@hiredate", TeacherInfo.HireDate);
+            cmd.Parameters.AddWithValue("@salary", TeacherInfo.Salary);
+            cmd.Parameters.AddWithValue("@teacher_id", id);
 
             cmd.Prepare();
             cmd.ExecuteNonQuery();

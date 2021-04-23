@@ -30,7 +30,8 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             return View(NewClass);
         }
 
-        // POST: Class/DeleteConfirmation
+        // GET: Class/DeleteConfirmation
+        [HttpGet]
         public ActionResult DeleteConfirmation(int id)
         {
             // Checking that the method is working

@@ -29,14 +29,14 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             return View(Teachers);
         }
 
-        // GET: /Teacher/Show
+        // GET: /Teacher/Show/{id}
         /// <summary>
         ///     View that displays a specific teacher from the school database
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         /// <example>
-        ///     GET: /Teacher/Show
+        ///     GET: /Teacher/Show/5
         /// </example>
         [HttpGet]
         public ActionResult Show(int id)
@@ -51,7 +51,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             return View(NewTeacher);
         }
 
-        // POST: /Teacher/DeleteConfirmation/{id}
+        // GET: /Teacher/DeleteConfirmation/{id}
         /// <summary>
         ///     View that displays a specific teacher that will be deleted from the database
         /// </summary>
@@ -60,7 +60,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         /// <example>
         ///     /Teacher/DeleteConfirmation/9
         /// </example>
-        [HttpPost]
+        [HttpGet]
         public ActionResult DeleteConfirmation(int id)
         {
             // Checking that the method is running
@@ -175,6 +175,25 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             Teacher SelectedTeacher = controller.FindTeacher(id);
 
             return View(SelectedTeacher);
+        }
+
+        // POST: /Teacher/Update/10
+        [HttpPost]
+        public ActionResult Update(int id, string TeacherFname, string TeacherLname, string EmployeeNumber, DateTime HireDate, decimal Salary)
+        {
+            // New Teacher Object
+            Teacher NewTeacher = new Teacher();
+            NewTeacher.TeacherFname = TeacherFname;
+            NewTeacher.TeacherLname = TeacherLname;
+            NewTeacher.EmployeeNumber = EmployeeNumber;
+            NewTeacher.HireDate = HireDate;
+            NewTeacher.Salary = Salary;
+
+            // Instantiating
+            TeacherDataController controller = new TeacherDataController();
+            controller.UpdateTeacher(id, NewTeacher);
+
+            return RedirectToAction("Show/" + id);
         }
     }
 }
