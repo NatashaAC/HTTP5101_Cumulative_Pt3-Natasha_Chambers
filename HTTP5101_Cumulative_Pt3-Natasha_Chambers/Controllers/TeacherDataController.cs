@@ -138,7 +138,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///     Deletes a Teacher and their information from the teachers table
         /// </summary>
         /// <param name="id">an integer, that corresponds to the teacherid</param>
-        /// <return> Nothing </return>
+        /// <returns> Nothing </returns>
         [HttpPost]
         public void DeleteTeacher(int id)
         {
@@ -168,7 +168,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///     Adds a Teacher to the teachers table
         /// </summary>
         /// <param name="NewTeacher">A teacher object</param>
-        /// <return> Nothing </return>
+        /// <returns> Nothing </returns>
         [HttpPost]
         public void AddTeacher([FromBody] Teacher NewTeacher)
         {
@@ -212,13 +212,12 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
 
             // SQL Query
             cmd.CommandText = "UPDATE teachers SET teacherfname = @teacherfname, teacherlname = @teacherlname, " +
-                "employeenumber = @employeenumber, hiredate = @hiredate, salary = @salary WHERE teacherid = @teacher_id";
+                "employeenumber = @employeenumber, salary = @salary WHERE teacherid = @teacher_id";
 
             // Parameters to protect against SQL Injection Attacks
             cmd.Parameters.AddWithValue("@teacherfname", TeacherInfo.TeacherFname);
             cmd.Parameters.AddWithValue("@teacherlname", TeacherInfo.TeacherLname);
             cmd.Parameters.AddWithValue("@employeenumber", TeacherInfo.EmployeeNumber);
-            cmd.Parameters.AddWithValue("@hiredate", TeacherInfo.HireDate);
             cmd.Parameters.AddWithValue("@salary", TeacherInfo.Salary);
             cmd.Parameters.AddWithValue("@teacher_id", id);
 

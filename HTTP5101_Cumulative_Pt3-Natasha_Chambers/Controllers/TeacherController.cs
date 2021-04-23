@@ -14,7 +14,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         /// <summary>
         ///     View that displays a list of teachers from the school database
         /// </summary>
-        /// <param name="SearchKey"></param>
+        /// <param name="SearchKey"> A teacher's first name, last name or both </param>
         /// <returns></returns>
         /// <example>
         ///     GET: /Teacher/List
@@ -33,7 +33,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         /// <summary>
         ///     View that displays a specific teacher from the school database
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id"> Id of a teacher </param>
         /// <returns></returns>
         /// <example>
         ///     GET: /Teacher/Show/5
@@ -46,16 +46,16 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
 
             // Instantiating 
             TeacherDataController controller = new TeacherDataController();
-            Teacher NewTeacher = controller.FindTeacher(id);
+            Teacher SelectedTeacher = controller.FindTeacher(id);
 
-            return View(NewTeacher);
+            return View(SelectedTeacher);
         }
 
         // GET: /Teacher/DeleteConfirmation/{id}
         /// <summary>
         ///     View that displays a specific teacher that will be deleted from the database
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id"> Id of a teacher </param>
         /// <returns></returns>
         /// <example>
         ///     /Teacher/DeleteConfirmation/9
@@ -68,16 +68,16 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
 
             // Instantiating 
             TeacherDataController controller = new TeacherDataController();
-            Teacher NewTeacher = controller.FindTeacher(id);
+            Teacher SelectedTeacher = controller.FindTeacher(id);
 
-            return View(NewTeacher);
+            return View(SelectedTeacher);
         }
 
         // POST: /Teacher/Delete/{id}
         /// <summary>
         ///     Deletes a specific teacher from the database and redirects to the List of teachers
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id"> Id of a teacher </param>
         /// <returns></returns>
         /// <example>
         ///     POST: /Teacher/Delete/5
@@ -97,9 +97,11 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
 
         // GET: /Teacher/New
         /// <summary>
-        ///     View that allows a user to input information about a teacher
+        ///     Routes to a dynamically generated "Teacher New" Page. 
+        ///     Gathers information from the database.
         /// </summary>
-        /// <returns></returns>
+        /// <returns> A dynamic "New Teacher" webpage which asks the user for new information 
+        /// as part of a form. </returns>
         /// <example>
         ///     GET: /Teacher/New
         /// </example>
@@ -113,12 +115,12 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         /// <summary>
         ///     Adds a new teacher's information to the database
         /// </summary>
-        /// <param name="TeacherFname"></param>
-        /// <param name="TeacherLname"></param>
-        /// <param name="EmployeeNumber"></param>
-        /// <param name="HireDate"></param>
-        /// <param name="Salary"></param>
-        /// <returns></returns>
+        /// <param name="TeacherFname"> First Name of teacher </param>
+        /// <param name="TeacherLname"> Last Name of teacher </param>
+        /// <param name="EmployeeNumber"> Teacher's employee number </param>
+        /// <param name="HireDate"> Date teacher was hiered </param>
+        /// <param name="Salary"> Amount of money teacher makes </param>
+        /// <returns> A dynamic webpage which provides a new teacher's information. </returns>
         /// <example>
         ///     POST: /Teacher/Create
         /// </example>
@@ -177,16 +179,36 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             return View(SelectedTeacher);
         }
 
-        // POST: /Teacher/Update/10
+        // POST: /Teacher/Update/{id}
+        /// <summary>
+        ///     Receives a POST request containing information about an existing teacher in the database, 
+        ///     with new values. Conveys this information to the API, 
+        ///     and redirects to the "Teacher Show" page of our updated author.
+        /// </summary>
+        /// <param name="id"> Id of a teacher </param>
+        /// <param name="TeacherFname"> First Name of a teacher </param>
+        /// <param name="TeacherLname"> Last name of a teacher </param>
+        /// <param name="EmployeeNumber"> Teacher's employee number </param>
+        /// <param name="Salary"> Amount of money a teacher makes </param>
+        /// <returns> A dynamic webpage which provides the current information of the teacher. </returns>
+        /// <example>
+        ///     POST: /Teacher/Update/6
+        ///     {
+        ///         "TeacherFname":"Thomas",
+        ///         "TeacherLname":"Hawkins",
+        ///         "EmployeeNumber":"T393",
+        ///         "HireDate":"2016-10-08",
+        ///         "Salary":"54.45"
+        ///     }
+        /// </example>
         [HttpPost]
-        public ActionResult Update(int id, string TeacherFname, string TeacherLname, string EmployeeNumber, DateTime HireDate, decimal Salary)
+        public ActionResult Update(int id, string TeacherFname, string TeacherLname, string EmployeeNumber, decimal Salary)
         {
             // New Teacher Object
             Teacher NewTeacher = new Teacher();
             NewTeacher.TeacherFname = TeacherFname;
             NewTeacher.TeacherLname = TeacherLname;
             NewTeacher.EmployeeNumber = EmployeeNumber;
-            NewTeacher.HireDate = HireDate;
             NewTeacher.Salary = Salary;
 
             // Instantiating

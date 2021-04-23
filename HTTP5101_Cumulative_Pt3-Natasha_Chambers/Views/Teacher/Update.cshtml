@@ -4,7 +4,7 @@
 }
 
 <nav>
-    <a class="navLink" href="/Teacher/List">Back to Teacher List</a>
+    <a class="navLink" href="/Teacher/Show/@Model.TeacherId">Back</a>
 </nav>
 
 <div>
@@ -22,10 +22,6 @@
         <div class="teacherInput">
             <label for="employeenumber">Employee Number:</label>
             <input type="text" id="employeenumber" name="employeenumber" value="@Model.EmployeeNumber" />
-        </div>
-        <div class="teacherInput">
-            <label for="hiredate">Hire Date:</label>
-            <input type="date" id="hiredate" name="hiredate" value="@Model.HireDate" />
         </div>
         <div class="teacherInput">
             <label for="salary">Salary:</label>
