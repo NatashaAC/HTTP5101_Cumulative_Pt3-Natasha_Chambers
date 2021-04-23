@@ -25,9 +25,9 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         {
             // Instantiating 
             ClassDataController controller = new ClassDataController();
-            Class NewClass = controller.FindClass(id);
+            Class SelectedClass = controller.FindClass(id);
 
-            return View(NewClass);
+            return View(SelectedClass);
         }
 
         // GET: Class/DeleteConfirmation
@@ -39,9 +39,9 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
 
             // Instantiating
             ClassDataController controller = new ClassDataController();
-            Class NewClass = controller.FindClass(id);
+            Class SelectedClass = controller.FindClass(id);
 
-            return View(NewClass);
+            return View(SelectedClass);
         }
 
         // GET: Class/Delete
@@ -94,6 +94,55 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
 
                 return RedirectToAction("List");
             }
+        }
+
+        // GET: /Class/Update/{id}
+        /// <summary>
+        ///     Routes to a dynamically generated "Class Update" Page. 
+        ///     Gathers information from the school database.
+        /// </summary>
+        /// <param name="id"> Id of a Class </param>
+        /// <returns>
+        ///     A dynamic "Update Class" webpage which provides the current information of the 
+        ///     class and asks the user for new information as part of a form.
+        /// </returns>
+        /// <example>
+        ///     GET: /Class/Update/9
+        /// </example>
+        [HttpGet]
+        public ActionResult Update(int id)
+        {
+            ClassDataController controller = new ClassDataController();
+            Class SelectedClass = controller.FindClass(id);
+
+            return View(SelectedClass);
+        }
+
+        // POST: /Teacher/Update/{id}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="ClassCode"></param>
+        /// <param name="ClassName"></param>
+        /// <param name="StartDate"></param>
+        /// <param name="FinishDate"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Update(int id, string ClassCode, string ClassName, DateTime StartDate, DateTime FinishDate)
+        {
+            // New Class Object
+            Class SelectedClass = new Class();
+            SelectedClass.ClassCode = ClassCode;
+            SelectedClass.ClassName = ClassName;
+            SelectedClass.StartDate = StartDate;
+            SelectedClass.FinishDate = FinishDate;
+
+            // Instantiating
+            ClassDataController controller = new ClassDataController();
+            controller.UpdateClass(id, SelectedClass);
+
+            return RedirectToAction("Show/" + id);
         }
     }
 }

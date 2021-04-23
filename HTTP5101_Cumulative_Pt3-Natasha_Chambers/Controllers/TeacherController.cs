@@ -161,11 +161,13 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         // GET: /Teacher/Update/{id}
         /// <summary>
         ///     Routes to a dynamically generated "Teacher Update" Page. 
-        ///     Gathers information from the database.
+        ///     Gathers information from the school database.
         /// </summary>
-        /// <param name="id">Id of the Teacher</param>
-        /// <returns>A dynamic "Update Teacher" webpage which provides the current information of the 
-        /// teacher and asks the user for new information as part of a form.</returns>
+        /// <param name="id">Id of a Teacher</param>
+        /// <returns>
+        ///     A dynamic "Update Teacher" webpage which provides the current information of the 
+        ///     teacher and asks the user for new information as part of a form.
+        /// </returns>
         /// <example>
         ///     GET: /Teacher/Update/6
         /// </example>
@@ -191,7 +193,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         /// <param name="EmployeeNumber"> Teacher's employee number </param>
         /// <param name="Salary"> Amount of money a teacher makes </param>
         /// <returns> A dynamic webpage which provides the current information of the teacher. </returns>
-        /// <example>
+        /// <example> 
         ///     POST: /Teacher/Update/6
         ///     {
         ///         "TeacherFname":"Thomas",
@@ -205,15 +207,15 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         public ActionResult Update(int id, string TeacherFname, string TeacherLname, string EmployeeNumber, decimal Salary)
         {
             // New Teacher Object
-            Teacher NewTeacher = new Teacher();
-            NewTeacher.TeacherFname = TeacherFname;
-            NewTeacher.TeacherLname = TeacherLname;
-            NewTeacher.EmployeeNumber = EmployeeNumber;
-            NewTeacher.Salary = Salary;
+            Teacher SelectedTeacher = new Teacher();
+            SelectedTeacher.TeacherFname = TeacherFname;
+            SelectedTeacher.TeacherLname = TeacherLname;
+            SelectedTeacher.EmployeeNumber = EmployeeNumber;
+            SelectedTeacher.Salary = Salary;
 
             // Instantiating
             TeacherDataController controller = new TeacherDataController();
-            controller.UpdateTeacher(id, NewTeacher);
+            controller.UpdateTeacher(id, SelectedTeacher );
 
             return RedirectToAction("Show/" + id);
         }

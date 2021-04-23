@@ -42,7 +42,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
                 "OR LOWER(classcode) LIKE LOWER(@key)";
 
             // Parameters to protect Query from SQL Injection Attacks
-            cmd.Parameters.AddWithValue("key", "%" + SearchKey + "%");
+            cmd.Parameters.AddWithValue("@key", "%" + SearchKey + "%");
             cmd.Prepare();
 
             // Variable thats stores the results from the SQL Querys
@@ -103,7 +103,10 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             // SQL Query
-            cmd.CommandText = "SELECT * FROM classes WHERE classid = " + id;
+            cmd.CommandText = "SELECT * FROM classes WHERE classid = @id";
+
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Prepare();
 
             // Store Query results
             MySqlDataReader ResultSet = cmd.ExecuteReader();
@@ -152,7 +155,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             cmd.CommandText = "DELETE FROM classes WHERE classid = @id";
 
             // Parameters to protect against SQL Injection Attacks
-            cmd.Parameters.AddWithValue("id", id);
+            cmd.Parameters.AddWithValue("@id", id);
             cmd.Prepare();
 
             cmd.ExecuteNonQuery();
@@ -183,10 +186,39 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
                 "VALUES (@classcode, @startdate, @finishdate, @classname)";
 
             // Parameters for SQL Query to protect against SQL Injection Attacks
-            cmd.Parameters.AddWithValue("classcode", NewClass.ClassCode);
-            cmd.Parameters.AddWithValue("startdate", NewClass.StartDate);
-            cmd.Parameters.AddWithValue("finishdate", NewClass.FinishDate);
-            cmd.Parameters.AddWithValue("classname", NewClass.ClassName);
+            cmd.Parameters.AddWithValue("@classcode", NewClass.ClassCode);
+            cmd.Parameters.AddWithValue("@startdate", NewClass.StartDate);
+            cmd.Parameters.AddWithValue("@finishdate", NewClass.FinishDate);
+            cmd.Parameters.AddWithValue("@classname", NewClass.ClassName);
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            // Close Connection
+            Conn.Close();
+        }
+
+        public void UpdateClass(int id, [FromBody] Class ClassInfo)
+        {
+            // Instance of connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            // Open connection between web server and database
+            Conn.Open();
+
+            // Create new query for database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            // SQL Query
+            cmd.CommandText = "UPDATE classes SET classcode = @classcode, classname = @classname, " +
+                "startdate = @startdate, finishdate = @finishdate WHERE classid = @classid";
+
+            // Parameters for SQL Query to protect against SQL Injection Attacks
+            cmd.Parameters.AddWithValue("@classcode", ClassInfo.ClassCode);
+            cmd.Parameters.AddWithValue("@classname", ClassInfo.ClassName);
+            cmd.Parameters.AddWithValue("@startdate", ClassInfo.StartDate);
+            cmd.Parameters.AddWithValue("@finishdate", ClassInfo.FinishDate);
+            cmd.Parameters.AddWithValue("@classid", id);
 
             cmd.Prepare();
             cmd.ExecuteNonQuery();
