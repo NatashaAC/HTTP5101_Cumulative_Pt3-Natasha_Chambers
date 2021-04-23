@@ -276,6 +276,8 @@
     <Content Include="Views\Student\New.cshtml" />
     <Content Include="Views\Student\DeleteConfirmation.cshtml" />
     <Content Include="Views\Teacher\Update.cshtml" />
+    <Content Include="Views\Student\Update.cshtml" />
+    <Content Include="Views\Class\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

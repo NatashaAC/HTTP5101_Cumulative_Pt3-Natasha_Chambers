@@ -1,34 +1,30 @@
-﻿
+﻿@model HTTP5101_Cumulative_Pt3_Natasha_Chambers.Models.Student
 @{
-    ViewBag.Title = "New";
+    ViewBag.Title = "Update";
 }
 
 <nav>
-    <a class="navLink" href="/Student/List">Back to Student List</a>
+    <a class="navLink" href="/Student/Show/@Model.StudentId">Back</a>
 </nav>
 
 <div>
-    <h2>New Student</h2>
+    <h2>Update Student</h2>
 
-    <form action="/Student/Create" method="POST" onsubmit="validateStudentForm();">
+    <form action="/Student/Update/@Model.StudentId" method="POST" onsubmit="validateStudentForm();">
         <div class="studentInput">
             <label for="studentfname">First Name:</label>
-            <input type="text" id="studentfname" name="studentfname" />
+            <input type="text" id="studentfname" name="studentfname" value="@Model.StudentFname" />
             <p class="errorMssg" id="fnErrorMssg"></p>
         </div>
         <div class="studentInput">
             <label for="studentlname">Last Name:</label>
-            <input type="text" id="studentlname" name="studentlname" />
+            <input type="text" id="studentlname" name="studentlname" value="@Model.StudentLname" />
             <p class="errorMssg" id="lnErrorMssg"></p>
         </div>
         <div class="studentInput">
             <label for="studentnumber">Student Number:</label>
-            <input type="text" id="studentnumber" name="studentnumber" />
+            <input type="text" id="studentnumber" name="studentnumber" value="@Model.StudentNumber" />
             <p class="errorMssg" id="snErrorMssg"></p>
-        </div>
-        <div class="studentInput">
-            <label for="enrolldate">Enroll Date:</label>
-            <input type="date" id="enrolldate" name="enrolldate" />
         </div>
         <div>
             <button class="formBtn" type="submit">Add Student</button>

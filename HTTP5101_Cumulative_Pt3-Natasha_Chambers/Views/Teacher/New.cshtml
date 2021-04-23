@@ -7,37 +7,39 @@
     <a class="navLink" href="/Teacher/List">Back to Teacher List</a>
 </nav>
 
-<h2>New Teacher</h2>
+<div>
+    <h2>New Teacher</h2>
 
-<form method="POST" action="/Teacher/Create" onsubmit="validateTeacherForm();">
-    <div class="teacherInput">
-        <label for="teacherfname">First Name:</label>
-        <input type="text" id="teacherfname" name="teacherfname" />
-        <p id="fnErrorMssg"></p>
-    </div>
-    <div class="teacherInput">
-        <label for="teacherlname">Last Name:</label>
-        <input type="text" id="teacherlname" name="teacherlname" />
-        <p class="errorMssg" id="lnErrorMssg"></p>
-    </div>
-    <div class="teacherInput">
-        <label for="employeenumber">Employee Number:</label>
-        <input type="text" id="employeenumber" name="employeenumber" />
-        <p class="errorMssg" id="emErrorMssg"></p>
-    </div>
-    <div class="teacherInput">
-        <label for="hiredate">Hire Date:</label>
-        <input type="date" id="hiredate" name="hiredate" />
-    </div>
-    <div class="teacherInput">
-        <label for="salary">Salary:</label>
-        <input type="text" id="salary" name="salary" />
-        <p class="errorMssg" id="salErrorMssg"></p>
-    </div>
-    <div>
-        <button class="formBtn" type="submit">Add Teacher</button>
-    </div>
-</form>
+    <form action="/Teacher/Create" method="POST" onsubmit="validateTeacherForm();">
+        <div class="teacherInput">
+            <label for="teacherfname">First Name:</label>
+            <input type="text" id="teacherfname" name="teacherfname" />
+            <p class="errorMssg" id="fnErrorMssg"></p>
+        </div>
+        <div class="teacherInput">
+            <label for="teacherlname">Last Name:</label>
+            <input type="text" id="teacherlname" name="teacherlname" />
+            <p class="errorMssg" id="lnErrorMssg"></p>
+        </div>
+        <div class="teacherInput">
+            <label for="employeenumber">Employee Number:</label>
+            <input type="text" id="employeenumber" name="employeenumber" />
+            <p class="errorMssg" id="emErrorMssg"></p>
+        </div>
+        <div class="teacherInput">
+            <label for="hiredate">Hire Date:</label>
+            <input type="date" id="hiredate" name="hiredate" />
+        </div>
+        <div class="teacherInput">
+            <label for="salary">Salary:</label>
+            <input type="text" id="salary" name="salary" />
+            <p class="errorMssg" id="salErrorMssg"></p>
+        </div>
+        <div>
+            <button class="formBtn" type="submit">Add Teacher</button>
+        </div>
+    </form>
+</div>
 
 <script type="text/javascript">
     function validateTeacherForm() {

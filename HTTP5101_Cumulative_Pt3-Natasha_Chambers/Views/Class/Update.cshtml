@@ -1,36 +1,34 @@
-﻿
+﻿@model HTTP5101_Cumulative_Pt3_Natasha_Chambers.Models.Class
 @{
-    ViewBag.Title = "New";
+    ViewBag.Title = "Update";
 }
 
 <nav>
-    <a class="navLink" href="/Class/List">Back to Class List</a>
+    <a class="navLink" href="/Class/Show/@Model.ClassId">Back</a>
 </nav>
 
 <div>
-    <h2>New Class</h2>
+    <h2>Update Class</h2>
 
-    <form action="/Class/Create" method="POST" onsubmit="validateClassForm()">
+    <form action="/Class/Update/@Model.ClassId" method="POST" onsubmit="validateClassForm();">
         <div class="classInput">
             <label for="classcode">Class Code:</label>
-            <input type="text" id="classcode" name="classcode" />
-            <p class="errorMssg" id="ccErrorMssg"></p>
+            <input type="text" id="classcode" name="classcode" value="@Model.ClassCode" />
         </div>
         <div class="classInput">
             <label for="classnames">Class Name:</label>
-            <input type="text" id="classname" name="classname" placeholder="http5105" />
-            <p class="errorMssg" id="cnErrorMssg"></p>
+            <input type="text" id="classname" name="classname" value="@Model.ClassName" />
         </div>
         <div class="classInput">
             <label>Start Date:</label>
-            <input type="date" id="startdate" name="startdate" />
+            <input type="date" id="startdate" name="startdate" value="@Model.StartDate" />
         </div>
         <div class="classInput">
             <label>Finish Date:</label>
-            <input type="date" id="finishdate" name="finishdate" />
+            <input type="date" id="finishdate" name="finishdate" @Model.FinishDate />
         </div>
         <div>
-            <button class="formBtn" type="submit">Add Class</button>
+            <button class="formBtn" type="submit">Update Class</button>
         </div>
     </form>
 </div>
