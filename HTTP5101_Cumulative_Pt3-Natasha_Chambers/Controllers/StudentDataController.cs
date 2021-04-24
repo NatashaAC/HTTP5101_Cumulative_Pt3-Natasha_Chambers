@@ -198,5 +198,32 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             // Close Connection
             Conn.Close();
         }
+
+        public void UpdateStudent(int id, [FromBody]Student StudentInfo)
+        {
+            // Instance of connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            // Open connection between web server and database
+            Conn.Open();
+
+            // Create new query for database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            // SQL Query
+            cmd.CommandText = "UPDATE students SET studentfname = @studentfname, studentlname = @studentlname, studentnumber = @studentnumber WHERE studentid = @student_id";
+
+            // Parameters for SQL Query to protect against SQL Injection Attacks
+            cmd.Parameters.AddWithValue("@studentfname", StudentInfo.StudentFname);
+            cmd.Parameters.AddWithValue("@studentlname", StudentInfo.StudentLname);
+            cmd.Parameters.AddWithValue("@studentnumber", StudentInfo.StudentNumber);
+            cmd.Parameters.AddWithValue("@student_id", id);
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            // Close Connection
+            Conn.Close();
+        }
     }
 }

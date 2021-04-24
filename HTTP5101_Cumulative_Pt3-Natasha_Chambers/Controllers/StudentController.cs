@@ -96,5 +96,32 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
                 return RedirectToAction("List");
             }
         }
+
+        // GET: /Student/Update/{id}
+        [HttpGet]
+        public ActionResult Update(int id)
+        {
+            StudentDataController controller = new StudentDataController();
+            Student SelectedStudent = controller.FindStudent(id);
+
+            return View(SelectedStudent);
+        }
+
+        // POST: /Student/Update/{id}
+        [HttpPost]
+        public ActionResult Update(int id, string StudentFname, string StudentLname, string StudentNumber)
+        {
+            // New Student Object
+            Student SelectedStudent = new Student();
+            SelectedStudent.StudentFname = StudentFname;
+            SelectedStudent.StudentLname = StudentLname;
+            SelectedStudent.StudentNumber = StudentNumber;
+
+            // Instantiating
+            StudentDataController controller = new StudentDataController();
+            controller.UpdateStudent(id, SelectedStudent);
+
+            return RedirectToAction("Show/" + id);
+        }
     }
 }
