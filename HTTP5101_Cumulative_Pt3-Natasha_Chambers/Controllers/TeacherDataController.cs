@@ -15,14 +15,20 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         private SchoolDbContext School = new SchoolDbContext();
 
         // Objective: 
-        // Access the data stored in the teachers table
+        //    Access the data stored in the teachers table and 
+        //    display a list of the teachers by first and last name.
+        //    Can search for a teacher by typing in their first name, last name,
+        //    or both
         /// <summary>
         ///     Returns a list of the data within the teachers table
         ///     in the school database
         /// </summary>
-        /// <returns> A list of teachers (first name, last name, employee number, hire date, salary)</returns>
+        /// <returns> A list of Teacher objects (first name, last name, employee number, hire date, salary)</returns>
         /// <example>
-        ///     GET api/TeacherData/ListTeachers
+        ///     GET api/TeacherData/ListTeachers -> Teacher Object, Teacher Object, etc..
+        /// </example>
+        /// <example>
+        ///     GET api/TeacherData/ListTeachers/Cody -> Cody Holland's Information
         /// </example>
         [HttpGet]
         [Route("api/TeacherData/ListTeachers/{SearchKey?}")]
@@ -77,12 +83,23 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             return Teachers;
         }
 
+        // Objective:
+        //  
         /// <summary>
         ///     Returns the information of a teacher based on the teacher id 
         /// </summary>
-        /// <param name="id"> an interger </param>
-        /// <returns> A teacher </returns>
-        /// <example> GET api/TeacherData/FindTeacher/4 </example>
+        /// <param name="id"> An integer, that corresponds to the teacherid </param>
+        /// <returns> A teacher object </returns>
+        /// <example> 
+        ///     GET api/TeacherData/FindTeacher/5 -> 
+        ///     {
+        ///         "TeacherFname":"Jessica",
+        ///         "TeacherLname":"Morris",
+        ///         "EmployeeNumber":"T389",
+        ///         "HireDate":"2012-06-04T00:00:00",
+        ///         "Salary":"48.62"
+        ///     }
+        /// </example>
         [HttpGet]
         [Route("api/TeacherData/FindTeacher/{id}")]
         public Teacher FindTeacher(int id)
@@ -137,8 +154,11 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         /// <summary>
         ///     Deletes a Teacher and their information from the teachers table
         /// </summary>
-        /// <param name="id">an integer, that corresponds to the teacherid</param>
+        /// <param name="id"> An integer, that corresponds to the teacherid </param>
         /// <returns> Nothing </returns>
+        /// <example>
+        ///     api/TeacherData/DeleteTeacher/5
+        /// </example>
         [HttpPost]
         public void DeleteTeacher(int id)
         {
@@ -167,8 +187,11 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         /// <summary>
         ///     Adds a Teacher to the teachers table
         /// </summary>
-        /// <param name="NewTeacher">A teacher object</param>
+        /// <param name="NewTeacher"> A teacher object </param>
         /// <returns> Nothing </returns>
+        /// <example>
+        ///     
+        /// </example>
         [HttpPost]
         public void AddTeacher([FromBody] Teacher NewTeacher)
         {
@@ -199,6 +222,15 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             Conn.Close();
         }
 
+        /// <summary>
+        ///     Updates the information of a specific Teacher
+        /// </summary>
+        /// <param name="id"> An integer, that corresponds to the teacherid </param>
+        /// <param name="TeacherInfo"> A teacher object </param>
+        /// <returns> Nothing </returns>
+        /// <example>
+        ///     api/TeacherData/UpdateTeacher/
+        /// </example>
         public void UpdateTeacher(int id, [FromBody]Teacher TeacherInfo)
         {
             // Instance of connection

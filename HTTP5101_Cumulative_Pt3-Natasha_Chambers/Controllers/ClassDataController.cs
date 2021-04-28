@@ -15,14 +15,15 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         private SchoolDbContext School = new SchoolDbContext();
 
         // Objective: 
-        // Access the data stored in the classes table
+        //  Access the data stored in the classes table
+        //  display a list of the classes by class name
         /// <summary>
         ///     Returns a list of the data within the classes table
         ///     in the school database
         /// </summary>
         /// <returns> A list of Classes (code, name, start date, fnish date)</returns>
         /// <example>
-        ///     GET api/ClassData/ListClasses
+        ///     GET api/ClassData/ListClasses -> Class Object, Class Object, etc..
         /// </example>
         [HttpGet]
         [Route("api/ClassData/ListClasses/{SearchKey?}")]
