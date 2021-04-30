@@ -14,8 +14,8 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         /// <summary>
         ///     View that displays a list of teachers from the school database
         /// </summary>
-        /// <param name="SearchKey"> A teacher's first name, last name or both </param>
-        /// <returns></returns>
+        /// <param name="SearchKey"> A string representing a teacher's first name, last name or both </param>
+        /// <returns> A dynamic webpage which provides the current information of the teacher.</returns>
         /// <example>
         ///     GET: /Teacher/List
         /// </example>
@@ -34,7 +34,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///     View that displays a specific teacher from the school database
         /// </summary>
         /// <param name="id"> Id of a teacher </param>
-        /// <returns></returns>
+        /// <returns>A dynamic webpage which provides the current information of the teacher. </returns>
         /// <example>
         ///     GET: /Teacher/Show/5
         /// </example>
@@ -56,7 +56,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///     View that displays a specific teacher that will be deleted from the database
         /// </summary>
         /// <param name="id"> Id of a teacher </param>
-        /// <returns></returns>
+        /// <returns> A dynamic webpage which provides the current information of the teacher.</returns>
         /// <example>
         ///     /Teacher/DeleteConfirmation/9
         /// </example>
@@ -78,7 +78,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///     Deletes a specific teacher from the database and redirects to the List of teachers
         /// </summary>
         /// <param name="id"> Id of a teacher </param>
-        /// <returns></returns>
+        /// <returns>A dynamic webpage which provides the current information of the teacher.</returns>
         /// <example>
         ///     POST: /Teacher/Delete/5
         /// </example>
@@ -106,7 +106,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///     GET: /Teacher/New
         /// </example>
         [HttpGet]
-        public ActionResult New()
+        public ActionResult Add()
         {
             return View();
         }
