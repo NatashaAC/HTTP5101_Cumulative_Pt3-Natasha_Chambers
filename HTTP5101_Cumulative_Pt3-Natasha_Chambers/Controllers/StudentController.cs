@@ -10,7 +10,16 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
 {
     public class StudentController : Controller
     {
-        // GET: Student/List
+        // GET: /Student/List
+        /// <summary>
+        ///     Routes to a dynamically generated "Student List" Page. 
+        ///     Gathers information about all the students in the database.
+        /// </summary>
+        /// <param name="SearchKey"> A string representing a student's first name, last name or both </param>
+        /// <returns> A dynamic webpage which displays a list of students </returns>
+        /// <example>
+        ///     /Student/Lisst
+        /// </example>
         public ActionResult List(string SearchKey = null)
         {
             // Instantiating 
@@ -20,9 +29,21 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             return View(Students);
         }
 
-        // GET: Student/Show
+        // GET: /Student/Show/{id}
+        /// <summary>
+        ///     Routes to a dynamically generated "Student Show" Page. 
+        ///     Gathers information about a specific student from the database
+        /// </summary>
+        /// <param name="id"> Id of a student </param>
+        /// <returns> A dynamic webpage which provides the current information of the student </returns>
+        /// <example>
+        ///     /Student/Show/3
+        /// </example>
         public ActionResult Show(int id)
         {
+            // Checking that the method is running
+            Debug.WriteLine("The SHOW Method is running and the student_id is " + id);
+
             // Instantiating 
             StudentDataController controller = new StudentDataController();
             Student NewStudent = controller.FindStudent(id);
@@ -30,7 +51,16 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             return View(NewStudent);
         }
 
-        // GET: /StudentS/DeleteConfirmation/{id}
+        // GET: /Student/DeleteConfirmation/{id}
+        /// <summary>
+        ///     Routes to a dynamically generated "Student DeleteConfirmation" Page. 
+        ///     Gathers information about a specific student that will be deleted from the database
+        /// </summary>
+        /// <param name="id"> Id of a student </param>
+        /// <returns> A dynamic webpage which provides the current information of the student </returns>
+        /// <example>
+        ///     /Student/DeleteConfirmation/11
+        /// </example>
         [HttpGet]
         public ActionResult DeleteConfirmation(int id)
         {
@@ -44,7 +74,18 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             return View(NewClass);
         }
 
-        // POST: /StudentsS/Delete/{id}
+        // POST: /Student/Delete/{id}
+        /// <summary>
+        ///    Receives a POST request containing information about an existing student in the database, 
+        ///    Conveys this information to the DeleteStudent API, inorder
+        ///    to remove the specific student from the database.
+        ///    Redirects to the "Student List" page.
+        /// </summary>
+        /// <param name="id"> Id of a student </param>
+        /// <returns>  A dynamic webpage which provides a list of students </returns>
+        /// <example>
+        ///     /Student/Delete/12
+        /// </example>
         [HttpPost]
         public ActionResult Delete(int id)
         {

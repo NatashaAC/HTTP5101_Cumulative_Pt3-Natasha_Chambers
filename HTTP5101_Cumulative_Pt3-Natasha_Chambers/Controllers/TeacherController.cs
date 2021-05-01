@@ -15,9 +15,9 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///     View that displays a list of teachers from the school database
         /// </summary>
         /// <param name="SearchKey"> A string representing a teacher's first name, last name or both </param>
-        /// <returns> A dynamic webpage which provides the current information of the teacher.</returns>
+        /// <returns> A dynamic webpage which displays a list of teachers.</returns>
         /// <example>
-        ///     GET: /Teacher/List
+        ///     /Teacher/List
         /// </example>
         [HttpGet]
         public ActionResult List(string SearchKey = null)
@@ -34,9 +34,9 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///     View that displays a specific teacher from the school database
         /// </summary>
         /// <param name="id"> Id of a teacher </param>
-        /// <returns>A dynamic webpage which provides the current information of the teacher. </returns>
+        /// <returns> A dynamic webpage which provides the current information of the teacher </returns>
         /// <example>
-        ///     GET: /Teacher/Show/5
+        ///     /Teacher/Show/5
         /// </example>
         [HttpGet]
         public ActionResult Show(int id)
@@ -56,7 +56,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///     View that displays a specific teacher that will be deleted from the database
         /// </summary>
         /// <param name="id"> Id of a teacher </param>
-        /// <returns> A dynamic webpage which provides the current information of the teacher.</returns>
+        /// <returns> A dynamic webpage which provides the current information of the teacher </returns>
         /// <example>
         ///     /Teacher/DeleteConfirmation/9
         /// </example>
@@ -185,7 +185,7 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         /// <summary>
         ///     Receives a POST request containing information about an existing teacher in the database, 
         ///     with new values. Conveys this information to the API, 
-        ///     and redirects to the "Teacher Show" page of our updated author.
+        ///     and redirects to the "Teacher Show" page of our updated teacher.
         /// </summary>
         /// <param name="id"> Id of a teacher </param>
         /// <param name="TeacherFname"> First Name of a teacher </param>

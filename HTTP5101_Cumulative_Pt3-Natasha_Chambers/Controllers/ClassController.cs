@@ -10,7 +10,15 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
 {
     public class ClassController : Controller
     {
-        // GET: Class/List
+        // GET: /Class/List
+        /// <summary>
+        ///     View that displays a list of classes from the school database
+        /// </summary>
+        /// <param name="SearchKey"> A string representing a class's name, or cousre code </param>
+        /// <returns> A dynamic webpage which displays a list of classes </returns>
+        /// <example>
+        ///     /Class/List
+        /// </example>
         public ActionResult List(string SearchKey = null)
         {
             // Instantiating
@@ -20,9 +28,20 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             return View(Classes);
         }
 
-        // GET: Class/Show
+        // GET: /Class/Show/{id}
+        /// <summary>
+        ///     View that displays a specific class from the school database
+        /// </summary>
+        /// <param name="id"> Id of a class </param>
+        /// <returns> A dynamic webpage which provides the current information of the teacher </returns>
+        /// <example>
+        ///     /Class/Show/9
+        /// </example>
         public ActionResult Show(int id)
         {
+            // Checking that the method is running
+            Debug.WriteLine("The SHOW Method is running and the class_id is " + id);
+
             // Instantiating 
             ClassDataController controller = new ClassDataController();
             Class SelectedClass = controller.FindClass(id);
@@ -30,7 +49,15 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             return View(SelectedClass);
         }
 
-        // GET: Class/DeleteConfirmation
+        // GET: /Class/DeleteConfirmation/{id}
+        /// <summary>
+        ///     View that displays a specific class that will be deleted from the database
+        /// </summary>
+        /// <param name="id"> Id of a class </param>
+        /// <returns> A dynamic webpage which provides the current information of the class </returns>
+        /// <example>
+        ///     /Class/DeleteConfirmation/7
+        /// </example>
         [HttpGet]
         public ActionResult DeleteConfirmation(int id)
         {
@@ -44,7 +71,13 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             return View(SelectedClass);
         }
 
-        // GET: Class/Delete
+        // POST: Class/Delete
+        /// <summary>
+        ///     Deletes a specific class from the database and redirects to the List of classes
+        /// </summary>
+        /// <param name="id"> Id of a Class </param>
+        /// <returns></returns>
+        [HttpPost]
         public ActionResult Delete(int id)
         {
             // Check that the method is working
