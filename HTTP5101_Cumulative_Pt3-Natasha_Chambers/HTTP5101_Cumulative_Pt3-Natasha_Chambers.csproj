@@ -272,8 +272,8 @@
     <Content Include="Views\Teacher\DeleteConfirmation.cshtml" />
     <Content Include="Views\Teacher\Add.cshtml" />
     <Content Include="Views\Class\DeleteConfirmation.cshtml" />
-    <Content Include="Views\Class\New.cshtml" />
-    <Content Include="Views\Student\New.cshtml" />
+    <Content Include="Views\Class\Add.cshtml" />
+    <Content Include="Views\Student\Add.cshtml" />
     <Content Include="Views\Student\DeleteConfirmation.cshtml" />
     <Content Include="Views\Teacher\Update.cshtml" />
     <Content Include="Views\Student\Update.cshtml" />

@@ -12,9 +12,10 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
     {
         // GET: /Class/List
         /// <summary>
-        ///     View that displays a list of classes from the school database
+        ///    Routes to a dynamically generated "Class List" Page. 
+        ///    Gathers information about all the classes in the database.
         /// </summary>
-        /// <param name="SearchKey"> A string representing a class's name, or cousre code </param>
+        /// <param name="SearchKey"> A string that represents a class's name, or cousre code </param>
         /// <returns> A dynamic webpage which displays a list of classes </returns>
         /// <example>
         ///     /Class/List
@@ -30,10 +31,11 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
 
         // GET: /Class/Show/{id}
         /// <summary>
-        ///     View that displays a specific class from the school database
+        ///     Routes to a dynamically generated "Class Show" Page. 
+        ///     Gathers information about a specific class from the database
         /// </summary>
-        /// <param name="id"> Id of a class </param>
-        /// <returns> A dynamic webpage which provides the current information of the teacher </returns>
+        /// <param name="id"> An interger that represents Id of a class </param>
+        /// <returns> A dynamic webpage which provides the current information of a class </returns>
         /// <example>
         ///     /Class/Show/9
         /// </example>
@@ -51,7 +53,8 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
 
         // GET: /Class/DeleteConfirmation/{id}
         /// <summary>
-        ///     View that displays a specific class that will be deleted from the database
+        ///     Routes to a dynamically generated "Class DeleteConfirmation" Page. 
+        ///     Gathers information about a specific class that will be deleted from the database
         /// </summary>
         /// <param name="id"> Id of a class </param>
         /// <returns> A dynamic webpage which provides the current information of the class </returns>
@@ -71,12 +74,18 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             return View(SelectedClass);
         }
 
-        // POST: Class/Delete
+        // POST: Class/Delete/{id}
         /// <summary>
-        ///     Deletes a specific class from the database and redirects to the List of classes
+        ///    Receives a POST request containing information about an existing class in the database, 
+        ///    Conveys this information to the DeleteClass API, inorder
+        ///    to remove the specific class from the database.
+        ///    Redirects to the "Class List" page.
         /// </summary>
         /// <param name="id"> Id of a Class </param>
-        /// <returns></returns>
+        /// <returns> A dynamic webpage which provides the current information of a class </returns>
+        /// <example>
+        ///     /Class/Delete/3
+        /// </example>
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -90,13 +99,42 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             return RedirectToAction("List");
         }
 
-        // GET: /Class/New
-        public ActionResult New()
+        // GET: /Class/Add
+        /// <summary>
+        ///     Routes to a dynamically generated "Class Add" Page. 
+        ///     Gathers information about a new class from a form 
+        ///     that will be added to the database.
+        /// </summary>
+        /// <returns> A dynamic webpage which asks the user for new information regarding a class as part of a form. </returns>
+        /// <exmple>
+        ///     /Class/Add
+        /// </exmple>
+        public ActionResult Add()
         {
             return View();
         }
 
         // POST: /Class/Create
+        /// <summary>
+        ///    Receives a POST request containing information about a new class, 
+        ///    Conveys this information to the AddClass API, inorder
+        ///    to add the specific class to the database.
+        ///    Redirects to the "Class List" page.
+        /// </summary>
+        /// <param name="ClassCode"> A string that represents a Class's code </param>
+        /// <param name="ClassName"> A string that represents a Class's name </param>
+        /// <param name="StartDate"> Start date of a class </param>
+        /// <param name="FinishDate"> Finish date of a class </param>
+        /// <returns> A dynamic webpage which provides a new class's information. </returns>
+        /// <example>
+        ///     /Class/Create
+        ///     {
+        ///         "ClassCode":"CALC1101",
+        ///         "ClassName":"Introduction to Calculus",
+        ///         "StartDate":"2020-09-14",
+        ///         "FinishDate":"2021-01-09"
+        ///     }
+        /// </example>
         [HttpPost]
         public ActionResult Create(string ClassCode, string ClassName, DateTime StartDate, DateTime FinishDate)
         {
@@ -132,12 +170,12 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         // GET: /Class/Update/{id}
         /// <summary>
         ///     Routes to a dynamically generated "Class Update" Page. 
+        ///     That asks the user for new information as part of a form.
         ///     Gathers information from the school database.
         /// </summary>
         /// <param name="id"> Id of a Class </param>
         /// <returns>
-        ///     A dynamic "Update Class" webpage which provides the current information of the 
-        ///     class and asks the user for new information as part of a form.
+        ///     A dynamic webpage which provides the current information of a class
         /// </returns>
         /// <example>
         ///     GET: /Class/Update/9
@@ -151,16 +189,27 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             return View(SelectedClass);
         }
 
-        // POST: /Teacher/Update/{id}
+        // POST: /Class/Update/{id}
         /// <summary>
-        /// 
+        ///     Receives a POST request containing information about an existing class in the database, 
+        ///     with new values. Conveys this information to the UpdateClass API, 
+        ///     and redirects to the "Class Show" page of our updated teacher.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="ClassCode"></param>
-        /// <param name="ClassName"></param>
-        /// <param name="StartDate"></param>
-        /// <param name="FinishDate"></param>
-        /// <returns></returns>
+        /// <param name="id"> Id of a class </param>
+        /// <param name="ClassCode"> A string that represents a Class's code </param>
+        /// <param name="ClassName"> A string that represents a Class's name </param>
+        /// <param name="StartDate"> Start date of a class </param>
+        /// <param name="FinishDate"> Finish date of a class </param>
+        /// <returns> A dynamic webpage which provides the current information of a class </returns>
+        /// <example>
+        ///     /Class/Update/10
+        ///     {
+        ///         "ClassCode":"http5205",
+        ///         "ClassName":"Career Connections",
+        ///         "StartDate":"2020-09-14",
+        ///         "FinishDate":"2021-01-09"
+        ///     }
+        /// </example>
         [HttpPost]
         public ActionResult Update(int id, string ClassCode, string ClassName, DateTime StartDate, DateTime FinishDate)
         {

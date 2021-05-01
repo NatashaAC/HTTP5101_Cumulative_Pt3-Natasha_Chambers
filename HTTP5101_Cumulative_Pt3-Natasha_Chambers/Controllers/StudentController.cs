@@ -15,8 +15,10 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///     Routes to a dynamically generated "Student List" Page. 
         ///     Gathers information about all the students in the database.
         /// </summary>
-        /// <param name="SearchKey"> A string representing a student's first name, last name or both </param>
-        /// <returns> A dynamic webpage which displays a list of students </returns>
+        /// <param name="SearchKey"> A string that represents a student's first name, last name or both </param>
+        /// <returns> 
+        ///     A dynamic webpage which displays a list of students 
+        /// </returns>
         /// <example>
         ///     /Student/Lisst
         /// </example>
@@ -34,8 +36,10 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///     Routes to a dynamically generated "Student Show" Page. 
         ///     Gathers information about a specific student from the database
         /// </summary>
-        /// <param name="id"> Id of a student </param>
-        /// <returns> A dynamic webpage which provides the current information of the student </returns>
+        /// <param name="id"> An interger that represents the Id of a Student </param>
+        /// <returns> 
+        ///     A dynamic webpage which provides the current information of a specific student 
+        /// </returns>
         /// <example>
         ///     /Student/Show/3
         /// </example>
@@ -56,8 +60,10 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///     Routes to a dynamically generated "Student DeleteConfirmation" Page. 
         ///     Gathers information about a specific student that will be deleted from the database
         /// </summary>
-        /// <param name="id"> Id of a student </param>
-        /// <returns> A dynamic webpage which provides the current information of the student </returns>
+        /// <param name="id"> An interger that represents the Id of a student </param>
+        /// <returns> 
+        ///     A dynamic webpage which provides the current information of the student 
+        /// </returns>
         /// <example>
         ///     /Student/DeleteConfirmation/11
         /// </example>
@@ -82,7 +88,9 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         ///    Redirects to the "Student List" page.
         /// </summary>
         /// <param name="id"> Id of a student </param>
-        /// <returns>  A dynamic webpage which provides a list of students </returns>
+        /// <returns>  
+        ///     A dynamic webpage which provides a list of students 
+        /// </returns>
         /// <example>
         ///     /Student/Delete/12
         /// </example>
@@ -99,13 +107,46 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
             return RedirectToAction("List");
         }
 
-        // GET: /Student/New
-        public ActionResult New()
+        // GET: /Student/Add
+        /// <summary>
+        ///     Routes to a dynamically generated "Student Add" Page. 
+        ///     Gathers information about a new student from a form 
+        ///     that will be added to the database.
+        /// </summary>
+        /// <returns> 
+        ///     A dynamic webpage which asks the user for new information regarding a student as part of a form
+        /// </returns>
+        /// <example>
+        ///     /Student/Add
+        /// </example>
+        public ActionResult Add()
         {
             return View();
         }
 
         // POST: /Student/Create
+        /// <summary>
+        ///    Receives a POST request containing information about a new student, 
+        ///    Conveys this information to the AddStudent API, inorder
+        ///    to add the specific student to the database.
+        ///    Redirects to the "Student List" page.
+        /// </summary>
+        /// <param name="StudentFname"> A string representing a Student's first name </param>
+        /// <param name="StudentLname"> A string representing a Student's last name </param>
+        /// <param name="StudentNumber"> A string representing a Student's number </param>
+        /// <param name="EnrollDate"> A date representing a Student's enroll date </param>
+        /// <returns> 
+        ///     A dynamic webpage which provides the current information of the teacher 
+        /// </returns>
+        /// <example>
+        ///     /Student/Create
+        ///     {
+        ///         "StudentFname":"Beth",
+        ///         "StudentLname":"Waltz",
+        ///         "StudentNumber":"N0107",
+        ///         "EnrollDate":"2018-10-08",
+        ///     }
+        /// </example>
         [HttpPost]
         public ActionResult Create(string StudentFname, string StudentLname, string StudentNumber, DateTime EnrollDate)
         {
@@ -139,9 +180,25 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         }
 
         // GET: /Student/Update/{id}
+        /// <summary>
+        ///     Routes to a dynamically generated "Student Update" Page.
+        ///     That asks the user for new information as part of a form.
+        ///     Gathers information from the school database.
+        /// </summary>
+        /// <param name="id"> An interger that represents the Id of a Student </param>
+        /// <returns> 
+        ///     A dynamic webpage which provides the current information of a student 
+        /// </returns>
+        /// <example>
+        ///     /Student/Update/4
+        /// </example>
         [HttpGet]
         public ActionResult Update(int id)
         {
+            // Checking that the method is running
+            Debug.WriteLine("The UPDATE Method is running and has updated student_id " + id);
+
+            // Instantiating 
             StudentDataController controller = new StudentDataController();
             Student SelectedStudent = controller.FindStudent(id);
 
@@ -149,9 +206,36 @@ namespace HTTP5101_Cumulative_Pt3_Natasha_Chambers.Controllers
         }
 
         // POST: /Student/Update/{id}
+        /// <summary>
+        ///    Receives a POST request containing information about an existing student, 
+        ///    Conveys this information to the UpdateStudent API, inorder
+        ///    to update the specific student information in the database.
+        ///    Redirects to the "Student Show" page.
+        /// </summary>
+        /// <param name="id"> An interger that represents the Id of a Student </param>
+        /// <param name="StudentFname"> A string that represents the First Name of a student </param>
+        /// <param name="StudentLname"> A string that represents the Last Name of a student </param>
+        /// <param name="StudentNumber"> A string that represents the Student Number of a student </param>
+        /// <returns> 
+        ///     A dynamic webpage which provides the current information of a student 
+        /// </returns>
+        /// <example>
+        ///     /Student/Update/4
+        ///     {
+        ///         "StudentFname":"Mario",
+        ///         "StudentLname":"English",
+        ///         "StudentNumber":"N1686"
+        ///     }
+        /// </example>
         [HttpPost]
         public ActionResult Update(int id, string StudentFname, string StudentLname, string StudentNumber)
         {
+            // Checking that the method is running
+            Debug.WriteLine("The UPDATE Method is running and has updated student_id " + id);
+
+            // Checking that the inputs from the form has been received 
+            Debug.WriteLine("Student Number: " + StudentNumber + ", First name: " + StudentFname + ", Last name: " + StudentLname);
+           
             // New Student Object
             Student SelectedStudent = new Student();
             SelectedStudent.StudentFname = StudentFname;
